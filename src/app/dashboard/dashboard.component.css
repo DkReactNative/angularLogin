@@ -1,0 +1,26 @@
+#td-data{
+	width: 80%;
+    font-size: medium;
+    font-weight: 500;
+}
+
+#td-des{
+	font-weight: bold;
+	width: 300px;
+	margin-left: 30px;
+    font-size: medium;
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+tr{
+    width: 50%
+}
+.box-body{
+	margin-top: 60px
+}

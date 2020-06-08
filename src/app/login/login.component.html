@@ -1,0 +1,33 @@
+<h2>Login</h2>
+ <form [formGroup]="formData" autocomplete="off">
+
+                <div class="form-group">
+                    <input type="text" name="" class="form-control" placeholder="Email address" formControlName="email">
+                    <div *ngIf="formData.controls['email'].invalid &&
+                    (formData.controls['email'].dirty ||
+                    formData.controls['email'].touched ||
+                      this.formSubmitAttempt)">
+                        <span class="error text-danger" *ngIf="formData.controls['email'].errors.required">Email is required!!</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="" class="form-control" placeholder="Password" formControlName="password">
+                    <div *ngIf="formData.controls['password'].invalid &&
+                    (formData.controls['password'].dirty ||
+                    formData.controls['password'].touched ||
+                      this.formSubmitAttempt)">
+                        <span class="error text-danger" *ngIf="formData.controls['password'].errors.required">Password is required!!</span>
+                    </div>
+                </div>
+                
+                    <div class="custom-control custom-checkbox" style="width: 40%">
+                        <input type="checkbox" class="custom-control-input" [(ngModel)]="rememberme" [ngModelOptions]="{standalone: true}" id="defaultUnchecked">
+                        <label class="custom-control-label" for="defaultUnchecked">Remember me</label>
+                    </div>
+                   
+               
+                <button class="btn btn-success" (click)="login(formData.value)" style="width: 40%">Let’s Go</button>
+                <div class="text-center signup-text">
+                    <p>Don’t have an account? <a href="javascript:;" [routerLink]="['/register']"> Sign up</a></p>
+                </div>
+            </form>

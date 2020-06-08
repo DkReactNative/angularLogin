@@ -1,0 +1,185 @@
+<h2>Register</h2>
+<form [formGroup]="formData" autocomplete="off" (ngSubmit)="register(formData.value)">
+    <div class="form-group">
+        <div class="sm-photo d-flex">
+                    <div class="pro-photo">
+                      <figure class="m-0" (click)="triggerFile()">
+                        <div>
+                          <img id="profile-image" [src]="profileImage" style="height: 95px;width: 95px;object-fit: cover;">
+                        </div>
+                      </figure>
+                    </div>
+                    <a href="javascript:;" class="btn btn-blue text-center-class" data-toggle="modal" data-target="#change-photo" for="file-input" (click)="triggerFile()">Profile Photo </a>
+                    <input [hidden]="true" type="file" id="file-input" name="image" accept=".png, .jpg, .jpeg" (change)="uploadFile($event)" style="opacity :0" value="">
+    </div>
+    </div>
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+       <input type="name" name="" class="form-control" placeholder="First Name" formControlName="firstName">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div *ngIf="formData.controls['firstName'].invalid &&
+        (formData.controls['firstName'].dirty ||
+        formData.controls['firstName'].touched ||
+          this.formSubmitAttempt[0])">
+            <span class="error text-danger" *ngIf="formData.controls['firstName'].errors.required">First name is required!!</span>
+            <span class="error text-danger" *ngIf="formData.controls.firstName.errors?.rangeLength">Please enter a name between 1 and 55 characters long. !!</span>
+
+       </div>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" formControlName="lastName" class="form-control" placeholder="Enter last name" />
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div *ngIf="formData.controls['lastName'].invalid &&
+        (formData.controls['lastName'].dirty ||
+        formData.controls['lastName'].touched ||
+          this.formSubmitAttempt[0])">
+            <span class="error text-danger" *ngIf="formData.controls['lastName'].errors.required">Last name is required!!</span>
+            <span class="error text-danger" *ngIf="formData.controls.lastName.errors?.rangeLength">Please enter a name between 1 and 55 characters long. !!</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="mobile" class="mobile-label">Mobile</label>
+        <ngx-intl-tel-input 
+        [cssClass]="'form-control phone'" 
+        [preferredCountries]="preferredCountries"
+        [enableAutoCountrySelect]="false" 
+        [enablePlaceholder]="true" 
+        [searchCountryFlag]="true"
+        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+        [selectFirstCountry]="false" 
+        [selectedCountryISO]="CountryISO.India"
+        [maxLength]="15" 
+        [tooltipField]="TooltipLabel.Name" 
+        [phoneValidation]="true" 
+        [separateDialCode]="separateDialCode"
+        name="phone" formControlName="phone">
+      </ngx-intl-tel-input>
+      <div *ngIf="formData.controls['phone'].invalid &&
+        (formData.controls['phone'].dirty ||
+        formData.controls['phone'].touched || 
+          this.formSubmitAttempt[0])">
+            <span class="error text-danger" *ngIf="formData.controls['phone'].errors.required">Phone No. is required!!</span>
+            <span class="error text-danger" *ngIf="!formData.controls['phone'].errors.required && formData.controls['phone'].errors.validatePhoneNumber">Phone No. is not valid!!</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username">Email</label>
+       <input type="email" autocomplete="new-password" class="form-control " placeholder="Email Address " formControlName="email">
+        <div *ngIf="formData.controls['email'].invalid &&
+        (formData.controls['email'].dirty ||
+        formData.controls['email'].touched ||
+          this.formSubmitAttempt[2])">
+            <span class="error text-danger" *ngIf="formData.controls['email'].errors.required">Email is required!!</span>
+            <span class="error text-danger" *ngIf="formData.controls['email'].errors.pattern">Please enter valid email!!</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control " placeholder="Password " formControlName="password">
+        <div *ngIf="
+        formData.controls['password'].invalid &&
+        (formData.controls['password'].dirty ||
+        formData.controls['password'].touched ||
+          this.formSubmitAttempt[2])">
+            <span class=" error text-danger " *ngIf="formData.controls[ 'password'].errors.required ">Password is required!!</span>
+            <span class="error text-danger " *ngIf="formData.controls['password'].errors.minlength">Password must be between 8-12 characters</span>
+            <span class="error text-danger " *ngIf="formData.controls['password'].errors.maxlength">Password must be between 8-12 characters</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Confirm Password</label>
+         <input type="password" class="form-control " placeholder="Confirm Password " formControlName="confirmPassword">
+        <div *ngIf="
+        !formData.controls['confirmPassword'].untouched ||
+      this.formSubmitAttempt[2] ||
+      !formData.controls['confirmPassword'].untouched">
+            <span class=" error text-danger " *ngIf="formData.controls['confirmPassword'].errors &&
+            formData.controls['confirmPassword'].errors.required">Confirm password is required!!</span>
+            <span class="error text-danger " *ngIf="!(
+                formData.controls['confirmPassword'].errors &&
+                formData.controls['confirmPassword'].errors.required
+              ) &&
+              formData.errors &&
+              formData.errors != null &&
+              formData.errors.passwordsNotEqual">Password and confirm password not matched!!</span>
+        </div>
+    </div>
+    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control textarea-big" formControlName="description" placeholder="Enter description " ></textarea>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div *ngIf="formData.controls['description'].invalid &&
+                            (formData.controls['description'].dirty ||
+                            formData.controls['description'].touched ||
+                              formSubmitAttempt)">
+                                <span class="error text-danger" *ngIf="formData.controls['description'].errors.required">Description is required!!</span>
+                            </div>
+    </div>
+    <div class="form-group">
+                        <label>Address</label>
+                        <textarea class="form-control textarea-big" #search formControlName="address" placeholder="Enter Address " ></textarea>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div *ngIf="formData.controls['address'].invalid &&
+                            (formData.controls['address'].dirty ||
+                            formData.controls['address'].touched ||
+                              formSubmitAttempt)">
+                                <span class="error text-danger" *ngIf="formData.controls['address'].errors.required">Address is required!!</span>
+                            </div>
+    </div>
+    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" name="" class="form-control" formControlName="city" placeholder="City Name " >
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div *ngIf="formData.controls['city'].invalid &&
+                            (formData.controls['city'].dirty ||
+                            formData.controls['city'].touched ||
+                              formSubmitAttempt)">
+                                <span class="error text-danger" *ngIf="formData.controls['city'].errors.required">City name is required!!</span>
+                                <span class="error text-danger" *ngIf="formData.controls.city.errors?.rangeLength">Please enter a name between 1 and 100 characters long. !!</span>
+                            </div>
+    </div>
+    <div class="form-group">
+                        <label>State</label>
+                        <input type="text" name="" class="form-control"  formControlName="state" placeholder="State Name " >
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div *ngIf="formData.controls['state'].invalid &&
+                            (formData.controls['state'].dirty ||
+                            formData.controls['state'].touched ||
+                              formSubmitAttempt)">
+                                <span class="error text-danger" *ngIf="formData.controls['state'].errors.required">State name is required!!</span>
+                                <span class="error text-danger" *ngIf="formData.controls.state.errors?.rangeLength">Please enter a name between 1 and 100 characters long. !!</span>
+                            </div>
+    </div>
+      <div class="form-group">
+                        <label>Zip Code</label>
+                        <input type="text" name="" class="form-control" formControlName="zipCode" placeholder="Zip Code " >
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div *ngIf="formData.controls['zipCode'].invalid &&
+                            (formData.controls['zipCode'].dirty ||
+                            formData.controls['zipCode'].touched ||
+                             formSubmitAttempt)">
+                                <span class="error text-danger" *ngIf="formData.controls['zipCode'].errors.required">Zip Code is required!!</span>
+                                <span class="error text-danger" *ngIf="formData.controls.zipCode.errors?.rangeLength">Please enter a code between 1 and 10 characters long. !!</span>
+                                <span class="error text-danger" *ngIf="formData.controls.zipCode.errors?.pattern">Please enter a valid code !!</span>
+                            </div>
+  </div>
+  <div class="form-group">
+                        <label>Country</label>
+                        <input  type="text" name="" class="form-control" value="Country Name" formControlName="country" placeholder="Country Name " >
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div *ngIf="formData.controls['country'].invalid &&
+                            (formData.controls['country'].dirty ||
+                            formData.controls['country'].touched ||
+                              formSubmitAttempt)">
+                                <span class="error text-danger" *ngIf="formData.controls['country'].errors.required">Country name is required!!</span>
+                                <span class="error text-danger" *ngIf="formData.controls.country.errors?.rangeLength">Please enter a name between 1 and 55 characters long. !!</span>
+                            </div>
+ </div>
+    <div class="form-group">
+        <button  type="submit" class="btn btn-primary">
+            Register
+        </button>
+        <a routerLink="/login" class="btn btn-link">Login</a>
+    </div>
+</form>
